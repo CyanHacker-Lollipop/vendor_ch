@@ -1,13 +1,13 @@
-# Inherit common CM stuff
-$(call inherit-product, vendor/cm/config/common.mk)
+# Inherit common CH stuff
+$(call inherit-product, vendor/ch/config/common.mk)
 
-# Include CM audio files
-include vendor/cm/config/cm_audio.mk
+# Include CH audio files
+include vendor/ch/config/audio.mk
 
-# Include CM LatinIME dictionaries
-PRODUCT_PACKAGE_OVERLAYS += vendor/cm/overlay/dictionaries
+# Include CH LatinIME dictionaries
+PRODUCT_PACKAGE_OVERLAYS += vendor/ch/overlay/dictionaries
 
-# Optional CM packages
+# Optional CH packages
 PRODUCT_PACKAGES += \
     Galaxy4 \
     HoloSpiralWallpaper \
