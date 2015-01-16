@@ -68,7 +68,8 @@ endif
 
 # Copy over the changelog to the device
 PRODUCT_COPY_FILES += \
-    vendor/ch/CHANGELOG.mkdn:system/etc/CHANGELOG-CH.txt ##Chnagelog-CM should be mentioned somewhere else as well
+##Changelog-CH should be mentioned somewhere else as well
+    vendor/ch/CHANGELOG.mkdn:system/etc/CHANGELOG-CH.txt 
 
 # Backup Tool
 ifneq ($(WITH_GMS),true)
