@@ -242,7 +242,7 @@ PRODUCT_PACKAGES += \
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.root_access=3
+    persist.sys.root_access=1
 
 PRODUCT_PACKAGE_OVERLAYS += vendor/ch/overlay/common
 
