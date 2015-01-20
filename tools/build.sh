@@ -80,25 +80,22 @@ else
     DATE=date
 fi
 
+export OPT_CPUS=$(bc <<< "($CPUS-1)*2")
 export USE_CCACHE=1
 
 opt_clean=0
 opt_dex=0
 opt_initlogo=0
-opt_jobs="$CPUS"
+opt_jobs="$OPT_CPUS"
 opt_sync=0
 opt_pipe=0
 opt_verbose=0
 
-while getopts "c:dij:pso:v" opt; do
+while getopts "c:j:s" opt; do
     case "$opt" in
     c) opt_clean="$OPTARG" ;;
-    d) opt_dex=1 ;;
-    i) opt_initlogo=1 ;;
     j) opt_jobs="$OPTARG" ;;
     s) opt_sync=1 ;;
-    p) opt_pipe=1 ;;
-    v) opt_verbose=1 ;;
     *) usage
     esac
 done
@@ -164,7 +161,8 @@ export HACKIFY=true
 # lunch device
 echo -e ""
 echo -e ${bldblu}"Compiling ROM"${txtrst}
-lunch "cm_$device-user" && make bacon "-j$opt_jobs";
+lunch "cm_$device-user";
+lunch "ch_$device-user"&& make bacon "-j$opt_jobs";
 
 
 # finished? get elapsed time
