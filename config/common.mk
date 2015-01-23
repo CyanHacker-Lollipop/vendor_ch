@@ -146,15 +146,18 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     OmniSwitch
 	
-#PRODUCT_COPY_FILES += \
-#    vendor/ch/prebuilt/common/apps/Wally.apk:system/app/Wally.apk \
-#    vendor/ch/prebuilt/common/apps/ClockSync.apk:system/app/ClockSync.apk \
-#    vendor/ch/prebuilt/common/apps/Greenify.apk:system/app/Greenify.apk \
-#    vendor/ch/prebuilt/common/apps/TitaniumBackup.apk:system/app/TitaniumBackup.apk \
-#    vendor/ch/prebuilt/common/apps/SDMaid.apk:system/app/SDMaid.apk \
-#    vendor/ch/prebuilt/common/apps/TricksterMod.apk:system/app/TricksterMod.apk \
-#    vendor/ch/prebuilt/common/apps/BetterBatteryStats.apk:system/priv-app/BetterBatteryStats.apk 
-#    vendor/ch/prebuilt/common/apps/ThemeStore.apk:system/app/ThemeStore.apk 
+PRODUCT_COPY_FILES += \
+    vendor/ch/prebuilt/common/apps/Wally.apk:system/app/Wally/wally.apk \
+    vendor/ch/prebuilt/common/apps/Greenify.apk:system/app/Greenify/greenify.apk \
+    vendor/ch/prebuilt/common/apps/TitaniumBackup.apk:system/app/TitaniumBackup/titaniumbackup.apk \
+    vendor/ch/prebuilt/common/apps/SDMaid.apk:system/app/SDMaid/sdm.apk \
+    vendor/ch/prebuilt/common/apps/TricksterMod.apk:system/hackapp/FolderMount/fmount.apk \
+    vendor/ch/prebuilt/common/apps/BetterBatteryStats.apk:system/priv-app/BetterBatteryStats/betterbatterystats.apk 
+#we should try to build fmount only on devices with an external sd and remove it from settings if it isnt installed
+#   a performance app
+#   an explorer
+#   themestore
+
 
 #Rom Version
 MILESTONE = false
