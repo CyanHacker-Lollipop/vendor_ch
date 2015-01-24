@@ -139,7 +139,8 @@ PRODUCT_PACKAGES += \
     Eleven \
     LockClock \
     CMAccount \
-    CMHome
+    CMHome \
+	CyanogenSetupWizard
 	
 #CyanHacker
 
