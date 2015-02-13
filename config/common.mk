@@ -135,12 +135,9 @@ PRODUCT_PACKAGES += \
     CMFileManager \
     Eleven \
     LockClock \
-    CMAccount \
-    CMHome \
-	CyanogenSetupWizard
+    CMHome 
 	
 #CyanHacker
-
 PRODUCT_PACKAGES += \
     OmniSwitch
 	
