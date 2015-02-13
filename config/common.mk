@@ -233,8 +233,7 @@ PRODUCT_PACKAGES += \
 ifneq ($(TARGET_BUILD_VARIANT),user)
 PRODUCT_PACKAGES += \
     procmem \
-    procrank \
-    su
+    procrank 
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
