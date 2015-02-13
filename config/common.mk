@@ -53,7 +53,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.android.dataroaming=false
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.build.selinux=1
+    ro.build.selinux=0
 
 # Thank you, please drive thru!
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.dun.override=0
