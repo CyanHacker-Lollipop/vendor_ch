@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1969be_d5309158",
+        "filename": "config/common.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1003174
+      },
+      "writtenOn": "2015-02-15T00:11:12Z",
+      "side": 1,
+      "message": "I think it should be like this\n\n# These packages are excluded from user builds\nifneq ($(TARGET_BUILD_VARIANT),user)\nPRODUCT_PACKAGES +\u003d \\\n    procmem \\\n    procrank \nendif\n\nPRODUCT_PACKAGES +\u003d \\\nsu",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 13
+      },
+      "revId": "75fe593046b13dfd047d0b70c74cd3a2cb12270a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
