@@ -12,6 +12,8 @@ usage()
     echo -e "        4 - make kernelclean"
     echo -e "    -j# Set jobs"
     echo -e "    -s  Sync before build"
+	echo -e "    -h  Use Hackify Optimisations"
+	echo -e "    -u  Build User variant"
     echo -e ""
     echo -e ${txtbld}"  Example:"${txtrst}
     echo -e "    bash build.sh -c1 -j18 hammerhead"
@@ -90,12 +92,16 @@ opt_jobs="$OPT_CPUS"
 opt_sync=0
 opt_pipe=0
 opt_verbose=0
+opt_variant=0
+opt_hackify=0
 
-while getopts "c:j:s" opt; do
+while getopts "c:j:s:u:h" opt; do
     case "$opt" in
     c) opt_clean="$OPTARG" ;;
     j) opt_jobs="$OPTARG" ;;
     s) opt_sync=1 ;;
+	u) opt_variant=1 ;;
+	h)opt_hackify=1 ;;
     *) usage
     esac
 done
@@ -151,19 +157,29 @@ rm -f $OUTDIR/target/product/$device/system/build.prop
 rm -f $OUTDIR/target/product/$device/system/app/*.odex
 rm -f $OUTDIR/target/product/$device/system/framework/*.odex
 
-echo -e ""
-echo -e ${bldblu}"Starting Optimization"${txtrst}
-
 # start compilation
-echo -e ${cya}"Using Hackify, because this build script doesn't care what you think!"
-export HACKIFY=true
+if [ "$opt_hackify" -ne 0 ]; then
+    echo -e ""
+    echo -e ${cya}"Using Hackify Optimisations!"${txtrst}
+    export HACKIFY=true
+    echo -e ""
+else
+	echo -e ${cya}"Not using Hackify Optimisations! You´ll miss something!"${txtrst}
+	export HACKIFY=false
+fi
 
 # lunch device
 echo -e ""
 echo -e ${bldblu}"Compiling ROM"${txtrst}
-lunch "cm_$device-user";
-lunch "ch_$device-user"&& make bacon "-j$opt_jobs";
-
+if [ "$opt_variant" -ne 0 ]; then
+    echo -e ""
+    echo -e ${cya}"Build Variant = USER"${txtrst}
+    lunch "ch_$device-user"&& make bacon "-j$opt_jobs";
+    echo -e ""
+else	
+	echo -e ${cya}"Build Variant = USERDEBUG"${txtrst}
+	lunch "ch_$device-userdebug"&& make bacon "-j$opt_jobs";
+fi
 
 # finished? get elapsed time
 t2=$($DATE +%s)
