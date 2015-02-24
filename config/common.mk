@@ -130,7 +130,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Launcher3 \
     Trebuchet \
-    AudioFX \
     CMWallpapers \
     CMFileManager \
     Eleven \
@@ -147,6 +146,7 @@ PRODUCT_COPY_FILES += \
     vendor/ch/prebuilt/common/apps/TitaniumBackup.apk:system/app/TitaniumBackup/titaniumbackup.apk \
     vendor/ch/prebuilt/common/apps/SDMaid.apk:system/app/SDMaid/sdm.apk \
 	vendor/ch/prebuilt/common/apps/KernelAdiutor.apk:system/app/KernelAdiutor/kerneladiutor.apk \
+	vendor/ch/prebuilt/common/apps/Viper4Android.apk:system/app/Viper4Android/viper4android.apk \
     vendor/ch/prebuilt/common/apps/BetterBatteryStats.apk:system/priv-app/BetterBatteryStats/betterbatterystats.apk 
 
 #Rom Version
