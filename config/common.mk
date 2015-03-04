@@ -167,7 +167,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
   ro.cm.releasetype=UNOFFICIAL \
   ro.modversion=$(CH_VERSION) \
   ro.ch.display.version=$(CH_DISPLAY_VERSION)
-  ro.cmlegal.url=https://www.cyanogenmod.org/docs/privacy
+  ro.cmlegal.url=https://cyngn.com/legal/privacy-policy
 
 -include vendor/ch-priv/keys/keys.mk
 
