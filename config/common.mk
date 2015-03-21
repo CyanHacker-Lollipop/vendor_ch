@@ -243,3 +243,5 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/ch/overlay/common
 -include vendor/cyngn/product.mk
 
 $(call prepend-product-if-exists, vendor/extra/product.mk)
+
+include vendor/ch/config/sm.mk
