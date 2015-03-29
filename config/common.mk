@@ -243,3 +243,8 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/ch/overlay/common
 -include vendor/cyngn/product.mk
 
 $(call prepend-product-if-exists, vendor/extra/product.mk)
+
+##Optimzations
+ifneq ($(strip $(USE_OPTIMIZATIONS)),false)
+include vendor/ch/config/sm.mk
+endif
