@@ -1,5 +1,7 @@
 PRODUCT_BRAND ?= CyanHacker
 
+include vendor/ch/config/sm.mk
+
 ifneq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
 # determine the smaller dimension
 TARGET_BOOTANIMATION_SIZE := $(shell \
