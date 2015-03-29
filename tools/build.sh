@@ -2,7 +2,7 @@ usage()
 {
     echo -e ""
     echo -e ${txtbld}"Usage:"${txtrst}
-    echo -e "  buildsh [options] device"
+    echo -e "  bash build.sh [options] [device]"
     echo -e ""
     echo -e ${txtbld}"  Options:"${txtrst}
     echo -e "    -c# Cleanin options before build:"
@@ -10,10 +10,9 @@ usage()
     echo -e "        2 - make dirty"
     echo -e "        3 - make magic"
     echo -e "        4 - make kernelclean"
+    echo -e "        5 - remove /target and ~/.ccache"
     echo -e "    -j# Set jobs"
     echo -e "    -s  Sync before build"
-	echo -e "    -h  Use Hackify Optimisations"
-	echo -e "    -u  Build User variant"
     echo -e ""
     echo -e ${txtbld}"  Example:"${txtrst}
     echo -e "    bash build.sh -c1 -j18 hammerhead"
@@ -92,16 +91,12 @@ opt_jobs="$OPT_CPUS"
 opt_sync=0
 opt_pipe=0
 opt_verbose=0
-opt_variant=0
-opt_hackify=0
 
-while getopts "c:j:s:u:h" opt; do
+while getopts "c:j:s:u" opt; do
     case "$opt" in
     c) opt_clean="$OPTARG" ;;
     j) opt_jobs="$OPTARG" ;;
     s) opt_sync=1 ;;
-	u) opt_variant=1 ;;
-	h)opt_hackify=1 ;;
     *) usage
     esac
 done
@@ -133,6 +128,12 @@ elif [ "$opt_clean" -eq 4 ]; then
     echo -e ""
     echo -e ${bldblu}"All kernel components have been removed"${txtrst}
     echo -e ""
+elif [ "$opt_clean" -eq 5 ]; then
+    rm -rf ~/.ccache
+    rm -rf target
+    echo -e ""
+    echo -e ${bldblu}"Target folder and Ccache is clean"${txtrst}
+    echo -e ""
 fi
 
 # sync with latest sources
@@ -158,28 +159,12 @@ rm -f $OUTDIR/target/product/$device/system/app/*.odex
 rm -f $OUTDIR/target/product/$device/system/framework/*.odex
 
 # start compilation
-if [ "$opt_hackify" -ne 0 ]; then
-    echo -e ""
-    echo -e ${cya}"Using Hackify Optimisations!"${txtrst}
-    export HACKIFY=true
-    echo -e ""
-else
-	echo -e ${cya}"Not using Hackify Optimisations! You´ll miss something!"${txtrst}
-	export HACKIFY=false
-fi
 
 # lunch device
 echo -e ""
 echo -e ${bldblu}"Compiling ROM"${txtrst}
-if [ "$opt_variant" -ne 0 ]; then
-    echo -e ""
-    echo -e ${cya}"Build Variant = USER"${txtrst}
-    lunch "ch_$device-user"&& make bacon "-j$opt_jobs";
-    echo -e ""
-else	
-	echo -e ${cya}"Build Variant = USERDEBUG"${txtrst}
-	lunch "ch_$device-userdebug"&& make bacon "-j$opt_jobs";
-fi
+lunch "ch_$device-userdebug"&& make bacon "-j$opt_jobs";
+
 
 # finished? get elapsed time
 t2=$($DATE +%s)
