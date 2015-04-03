@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_8748ab5c",
+        "filename": "config/common.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1003174
+      },
+      "writtenOn": "2015-04-03T17:01:18Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 57
+      },
+      "revId": "a24543343571384e5b2919816933bd930b1d9a20",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_c7790395",
+        "filename": "config/common.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1003174
+      },
+      "writtenOn": "2015-04-03T17:01:18Z",
+      "side": 1,
+      "message": "bring terminal back :(",
+      "revId": "a24543343571384e5b2919816933bd930b1d9a20",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
