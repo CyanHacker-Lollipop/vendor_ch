@@ -65,8 +65,6 @@ endif
 
 # Copy over the changelog to the device
 PRODUCT_COPY_FILES += \
-#Changelog-CH should be mentioned somewhere else as well
-    vendor/ch/CHANGELOG.mkdn:system/etc/CHANGELOG-CH.txt 
 
 # Backup Tool
 ifneq ($(WITH_GMS),true)
@@ -124,7 +122,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     VoicePlus \
     Basic \
-    libemoji 
+    libemoji \
+	Terminal
 
 # Custom CM packages
 PRODUCT_PACKAGES += \
