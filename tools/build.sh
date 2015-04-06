@@ -167,7 +167,7 @@ rm -f $OUTDIR/target/product/$device/system/framework/*.odex
 if [ "$opt_log" -ne 0 ]; then
 echo -e ""
 echo -e ${bldblu}"Compiling ROM with log"${txtrst}
-lunch "ch_$device-userdebug"&& make bacon "-j$opt_jobs" > make.log 2>&1;
+lunch "ch_$device-userdebug"&& make bacon "-j$opt_jobs" > make_$device.log 2>&1;
 else
 echo -e ""
 echo -e ${bldblu}"Compiling ROM"${txtrst}
