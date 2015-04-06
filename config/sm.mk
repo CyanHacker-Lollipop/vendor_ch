@@ -234,7 +234,8 @@ ifeq ($(strip $(HOST_OS)),linux)
       libwebviewchromium \
       third_party_libvpx_libvpx_gyp \
       ui_gl_gl_gyp \
-      fio
+      fio \
+      libpcap
   else
     LOCAL_DISABLE_GRAPHITE += \
       libunwind \
@@ -256,7 +257,8 @@ ifeq ($(strip $(HOST_OS)),linux)
       libwebviewchromium \
       third_party_libvpx_libvpx_gyp \
       ui_gl_gl_gyp \
-      fio
+      fio \
+      libpcap
   endif
 
   # O3 optimizations
