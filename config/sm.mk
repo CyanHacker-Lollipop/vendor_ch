@@ -17,13 +17,15 @@
 # TARGET_GCC_AND and TARGET_GCC_ARM can be set before this file, to override the default of gcc 4.8 for ROM.
 # This is to avoid hardcoding the gcc versions for the ROM and kernels.
 
+#Define TARGET_ARCH here (It´s already defined in BoardConfig, but it needs to be set here as well)
+TARGET_ARCH_2 := arm
+
 # Inherit sabermod configs.  Default to arm if TARGET_ARCH is not defined.
 ifndef TARGET_ARCH
   $(warning ********************************************************************************)
   $(warning *  TARGET_ARCH not defined, defaulting to arm.)
-  $(warning *  To use arm64 set TARGET_ARCH := arm64)
-  $(warning *  in device makefile before this file is called.)
-  $(warning ********************************************************************************)
+  $(warning *  If your device is arm64, set TARGET_ARCH_2 := arm64)
+  $(warning ********************************************************************************)  
   TARGET_ARCH := arm
 endif
 
@@ -41,8 +43,7 @@ ifdef TARGET_GCC_ARM
 else
   $(warning ********************************************************************************)
   $(warning *  TARGET_GCC_ARM not defined.)
-  $(warning *  This needs to be set in device makefile before this file is called for inline kernel building.)
-  $(warning *  Skipping kernel bits.)
+  $(warning *  This needs to be set in device makefile.)
   $(warning ********************************************************************************)
   TARGET_GCC_ARM_DEFINED := false
 endif
@@ -127,7 +128,7 @@ ifeq ($(strip $(HOST_OS)),linux)
                  -floop-interchange \
                  -floop-strip-mine \
                  -floop-block \
-		 -floop-nest-optimize
+		         -floop-nest-optimize
       endif
     endif
   endif
@@ -199,7 +200,7 @@ ifeq ($(strip $(HOST_OS)),linux)
                  -floop-interchange \
                  -floop-strip-mine \
                  -floop-block \
-		 -floop-nest-optimize
+		         -floop-nest-optimize
       endif
     endif
   endif
@@ -235,7 +236,8 @@ ifeq ($(strip $(HOST_OS)),linux)
       third_party_libvpx_libvpx_gyp \
       ui_gl_gl_gyp \
       fio \
-      libpcap
+      libpcap \
+	  unrar
   else
     LOCAL_DISABLE_GRAPHITE += \
       libunwind \
@@ -258,7 +260,8 @@ ifeq ($(strip $(HOST_OS)),linux)
       third_party_libvpx_libvpx_gyp \
       ui_gl_gl_gyp \
       fio \
-      libpcap
+      libpcap \
+	  unrar
   endif
 
   # O3 optimizations
