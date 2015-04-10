@@ -17,16 +17,19 @@
 # TARGET_GCC_AND and TARGET_GCC_ARM can be set before this file, to override the default of gcc 4.8 for ROM.
 # This is to avoid hardcoding the gcc versions for the ROM and kernels.
 
-#Define TARGET_ARCH here (It´s already defined in BoardConfig, but it needs to be set here as well)
+#On CM trees, the BoardConfig which includes the TARGET_ARCH is called after this file. So TARGET_ARCH needs to be set here as well.
+#Set TARGET_ARCH_2 to the same value as in BoardConfig (but DO NOT change the value in BoardConfig
+#If TARGET_ARCH_2and TARGET_ARCHdont match the build will fail to make sure the right toolchain is used
+#I may find a better solution sometime but until then this should work just fine. 
 TARGET_ARCH_2 := arm
 
-# Inherit sabermod configs.  Default to arm if TARGET_ARCH is not defined.
-ifndef TARGET_ARCH
+# Inherit sabermod configs.  Default to arm if TARGET_ARCH_2 is not defined.
+ifndef TARGET_ARCH_2
   $(warning ********************************************************************************)
-  $(warning *  TARGET_ARCH not defined, defaulting to arm.)
+  $(warning *  TARGET_ARCH_2 not defined, defaulting to arm.)
   $(warning *  If your device is arm64, set TARGET_ARCH_2 := arm64)
   $(warning ********************************************************************************)  
-  TARGET_ARCH := arm
+  TARGET_ARCH_2 := arm
 endif
 
 ifndef TARGET_GCC_AND
@@ -61,7 +64,7 @@ endif
 # Only use these compilers on linux host.
 ifeq ($(strip $(HOST_OS)),linux)
 
-  ifeq ($(strip $(TARGET_ARCH)),arm)
+  ifeq ($(strip $(TARGET_ARCH_2)),arm)
 
     TARGET_ARCH_LIB_PATH := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-$(TARGET_GCC_AND)/lib
 
@@ -133,7 +136,7 @@ ifeq ($(strip $(HOST_OS)),linux)
     endif
   endif
 
-  ifeq ($(strip $(TARGET_ARCH)),arm64)
+  ifeq ($(strip $(TARGET_ARCH_2)),arm64)
 
     TARGET_ARCH_LIB_PATH := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/aarch64/aarch64-linux-android-$(TARGET_GCC_AND)/lib
 
