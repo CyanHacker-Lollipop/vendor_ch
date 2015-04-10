@@ -62,7 +62,7 @@ ifeq ($(strip $(HOST_OS)),linux)
 
   ifeq ($(strip $(TARGET_ARCH)),arm)
 
-    TARGET_ARCH_LIB_PATH := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-$(TARGET_GCC_AND)/lib/gcc/arm-linux-androideabi/$(TARGET_LIB_VERSION).x-sabermod
+    TARGET_ARCH_LIB_PATH := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-$(TARGET_GCC_AND)/lib
 
     # Path to ROM toolchain
     GCC_AND_PATH := prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-$(TARGET_GCC_AND)
@@ -134,7 +134,7 @@ ifeq ($(strip $(HOST_OS)),linux)
 
   ifeq ($(strip $(TARGET_ARCH)),arm64)
 
-    TARGET_ARCH_LIB_PATH := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/aarch64/aarch64-linux-android-$(TARGET_GCC_AND)/lib/gcc/aarch64-linux-android/$(TARGET_LIB_VERSION).x-aosp-sabermod
+    TARGET_ARCH_LIB_PATH := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/aarch64/aarch64-linux-android-$(TARGET_GCC_AND)/lib
 
     # Path to toolchain
     GCC_AND_PATH := prebuilts/gcc/$(HOST_PREBUILT_TAG)/aarch64/aarch64-linux-android-$(TARGET_GCC_AND)
