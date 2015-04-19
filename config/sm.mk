@@ -86,16 +86,26 @@ ifeq ($(strip $(HOST_OS)),linux)
       OPT1 := -graphite
       GRAPHITE := true
 
-      # Graphite flags and friends
-      GRAPHITE_FLAGS := \
-        -fgraphite \
-        -fgraphite-identity \
-        -floop-flatten \
-        -floop-parallelize-all \
-        -ftree-loop-linear \
-        -floop-interchange \
-        -floop-strip-mine \
-        -floop-block
+      # Check if there's already something set in a device make file somewhere.
+      ifndef GRAPHITE_FLAGS
+        GRAPHITE_FLAGS := \
+          -fgraphite \
+          -fgraphite-identity \
+          -floop-flatten \
+          -ftree-loop-linear \
+          -floop-interchange \
+          -floop-strip-mine \
+          -floop-block
+      else
+        GRAPHITE_FLAGS += \
+          -fgraphite \
+          -fgraphite-identity \
+          -floop-flatten \
+          -ftree-loop-linear \
+          -floop-interchange \
+          -floop-strip-mine \
+          -floop-block
+      endif
 
       # Legacy gcc doesn't understand this flag
       ifneq ($(strip $(USE_LEGACY_GCC)),true)
@@ -121,17 +131,42 @@ ifeq ($(strip $(HOST_OS)),linux)
         PRODUCT_PROPERTY_OVERRIDES += \
           ro.sm.kernel=$(SM_KERNEL_VERSION)
 
-        # Graphite flags for kernel
+        # Some graphite flags are only available for certain gcc versions
+        GRAPHITE_UNROLL_AND_JAM := $(filter 5.0.x-sabermod 6.0.x-sabermod,$(SM_KERNEL))
+
+        # Check if there's already something set in a device make file somewhere.
+        ifndef GRAPHITE_KERNEL_FLAGS
         export GRAPHITE_KERNEL_FLAGS := \
-                 -fgraphite \
-                 -fgraphite-identity \
-                 -floop-flatten \
-                 -floop-parallelize-all \
-                 -ftree-loop-linear \
-                 -floop-interchange \
-                 -floop-strip-mine \
-                 -floop-block \
-		         -floop-nest-optimize
+            -fgraphite \
+            -fgraphite-identity \
+            -floop-flatten \
+            -ftree-loop-linear \
+            -floop-interchange \
+            -floop-strip-mine \
+            -floop-block \
+            -floop-nest-optimize
+        ifneq ($(GRAPHITE_UNROLL_AND_JAM),)
+     export GRAPHITE_KERNEL_FLAGS := \
+              $(GRAPHITE_KERNEL_FLAGS) \
+              -floop-unroll-and-jam
+          endif
+        else
+        export GRAPHITE_KERNEL_FLAGS := \
+            $(GRAPHITE_KERNEL_FLAGS) \
+            -fgraphite \
+            -fgraphite-identity \
+            -floop-flatten \
+            -ftree-loop-linear \
+            -floop-interchange \
+            -floop-strip-mine \
+            -floop-block \
+            -floop-nest-optimize
+          ifneq ($(GRAPHITE_UNROLL_AND_JAM),)
+     export GRAPHITE_KERNEL_FLAGS := \
+              $(GRAPHITE_KERNEL_FLAGS) \
+              -floop-unroll-and-jam
+          endif
+        endif
       endif
     endif
   endif
@@ -159,15 +194,26 @@ ifeq ($(strip $(HOST_OS)),linux)
       GRAPHITE := true
 
       # Graphite flags and friends
-      GRAPHITE_FLAGS := \
-        -fgraphite \
-        -fgraphite-identity \
-        -floop-flatten \
-        -floop-parallelize-all \
-        -ftree-loop-linear \
-        -floop-interchange \
-        -floop-strip-mine \
-        -floop-block
+      # Check if there's already something set in a device make file somewhere.
+      ifndef GRAPHITE_FLAGS
+        GRAPHITE_FLAGS := \
+          -fgraphite \
+          -fgraphite-identity \
+          -floop-flatten \
+          -ftree-loop-linear \
+          -floop-interchange \
+          -floop-strip-mine \
+          -floop-block
+      else
+        GRAPHITE_FLAGS += \
+          -fgraphite \
+          -fgraphite-identity \
+          -floop-flatten \
+          -ftree-loop-linear \
+          -floop-interchange \
+          -floop-strip-mine \
+          -floop-block
+      endif
 
       # Legacy gcc doesn't understand this flag
       ifneq ($(strip $(USE_LEGACY_GCC)),true)
@@ -180,8 +226,8 @@ ifeq ($(strip $(HOST_OS)),linux)
     ifeq ($(strip $(TARGET_GCC_ARM_DEFINED)),true)
 
       # Path to kernel toolchain
-      GCC_ARM_PATH := prebuilts/gcc/$(HOST_PREBUILT_TAG)/aarch64/aarch64-linux-android-$(TARGET_GCC_ARM)
-      GCC_ARM := $(shell $(GCC_ARM_PATH)/bin/aarch64-linux-android-gcc --version)
+      GCC_ARM_PATH := prebuilts/gcc/$(HOST_PREBUILT_TAG)/aarch64/aarch64-$(TARGET_GCC_ARM)
+      GCC_ARM := $(shell $(GCC_ARM_PATH)/bin/aarch64-gcc --version)
 
       ifneq ($(filter %sabermod,$(GCC_ARM)),)
         SM_KERNEL_NAME := $(filter %sabermod,$(GCC_ARM))
@@ -193,17 +239,42 @@ ifeq ($(strip $(HOST_OS)),linux)
         PRODUCT_PROPERTY_OVERRIDES += \
           ro.sm.kernel=$(SM_KERNEL_VERSION)
 
-        # Graphite flags for kernel
+        # Some graphite flags are only available for certain gcc versions
+        GRAPHITE_UNROLL_AND_JAM := $(filter 5.0.x-sabermod 6.0.x-sabermod,$(SM_KERNEL))
+
+        # Check if there's already something set in a device make file somewhere.
+        ifndef GRAPHITE_KERNEL_FLAGS
         export GRAPHITE_KERNEL_FLAGS := \
-                 -fgraphite \
-                 -fgraphite-identity \
-                 -floop-flatten \
-                 -floop-parallelize-all \
-                 -ftree-loop-linear \
-                 -floop-interchange \
-                 -floop-strip-mine \
-                 -floop-block \
-		         -floop-nest-optimize
+            -fgraphite \
+            -fgraphite-identity \
+            -floop-flatten \
+            -ftree-loop-linear \
+            -floop-interchange \
+            -floop-strip-mine \
+            -floop-block \
+            -floop-nest-optimize
+          ifneq ($(GRAPHITE_UNROLL_AND_JAM),)
+          export GRAPHITE_KERNEL_FLAGS := \
+              $(GRAPHITE_KERNEL_FLAGS) \
+              -floop-unroll-and-jam
+          endif
+        else
+        export GRAPHITE_KERNEL_FLAGS := \
+            $(GRAPHITE_KERNEL_FLAGS) \
+            -fgraphite \
+            -fgraphite-identity \
+            -floop-flatten \
+            -ftree-loop-linear \
+            -floop-interchange \
+            -floop-strip-mine \
+            -floop-block \
+            -floop-nest-optimize
+          ifneq ($(GRAPHITE_UNROLL_AND_JAM),)
+          export GRAPHITE_KERNEL_FLAGS := \
+              $(GRAPHITE_KERNEL_FLAGS) \
+              -floop-unroll-and-jam
+           endif
+        endif
       endif
     endif
   endif
@@ -235,12 +306,12 @@ ifeq ($(strip $(HOST_OS)),linux)
       libavcodec \
       skia_skia_library_gyp \
       libSR_Core \
-      libwebviewchromium \
       third_party_libvpx_libvpx_gyp \
       ui_gl_gl_gyp \
       fio \
       libpcap \
-	  unrar
+      unrar \
+      f2fs_utils
   else
     LOCAL_DISABLE_GRAPHITE += \
       libunwind \
@@ -259,12 +330,12 @@ ifeq ($(strip $(HOST_OS)),linux)
       libavcodec \
       skia_skia_library_gyp \
       libSR_Core \
-      libwebviewchromium \
       third_party_libvpx_libvpx_gyp \
       ui_gl_gl_gyp \
       fio \
       libpcap \
-	  unrar
+      unrar \
+      f2fs_utils
   endif
 
   # O3 optimizations
@@ -280,12 +351,10 @@ ifeq ($(strip $(HOST_OS)),linux)
     ifndef LOCAL_DISABLE_O3
       LOCAL_DISABLE_O3 := \
         libaudioflinger \
-        libwebviewchromium \
         skia_skia_library_gyp
     else
       LOCAL_DISABLE_O3 += \
         libaudioflinger \
-        libwebviewchromium \
         skia_skia_library_gyp
     endif
 
@@ -320,12 +389,6 @@ ifeq ($(strip $(HOST_OS)),linux)
     OPT3:=
   endif
 
- ifeq ($(strip $(ARCHIDROID_OPTIMIZATIONS)),true)
-   OPT4:= -archi
- else
-   OPT4:=
- endif
-
   # Write gcc optimizations to build.prop
   GCC_OPTIMIZATION_LEVELS := $(OPT1)$(OPT2)$(OPT3)$(OPT4)
   ifneq ($(GCC_OPTIMIZATION_LEVELS),)
@@ -345,6 +408,27 @@ ifeq ($(strip $(HOST_OS)),linux)
   else
     MAYBE_UNINITIALIZED += \
       fastboot
+  endif
+
+  # Enable some basic host gcc optimizations
+  # None that are cpu specific but arch is ok. It's already known that we are on linux-x86.
+  # Many people claim that host binaries are not useful, this can be proven as false, and that there is some benifit.
+  # Especially when used with -O3
+  # Most of the host binary files are linked with ld or gcc as shared and static libraries for arch and clang binaries.
+  EXTRA_SABERMOD_HOST_GCC_CFLAGS := \
+    -march=x86-64 \
+    -ftree-vectorize \
+    -pipe
+
+  # Only enable loop optimizations if -O3 is enabled.
+  # These's no graphite here on host, so extra loop optimzations by themselves can be bad.
+  ifeq ($(strip $(O3_OPTIMIZATIONS)),true)
+    EXTRA_SABERMOD_HOST_GCC_CFLAGS += \
+      -ftree-loop-distribution \
+      -ftree-loop-if-convert \
+      -ftree-loop-im \
+      -ftree-loop-ivcanon \
+      -fprefetch-loop-arrays
   endif
 
 else
