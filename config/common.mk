@@ -151,7 +151,7 @@ PRODUCT_COPY_FILES += \
     vendor/ch/prebuilt/common/apps/BetterBatteryStats.apk:system/priv-app/BetterBatteryStats/betterbatterystats.apk 
 
 #Rom Version
-MILESTONE = false
+MILESTONE = true
 PRODUCT_VERSION_MAJOR = 3
 PRODUCT_VERSION_MINOR = 1
 
@@ -167,7 +167,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
   ro.ch.version=$(CH_VERSION) \
   ro.cm.releasetype=UNOFFICIAL \
   ro.modversion=$(CH_VERSION) \
-  ro.ch.display.version=$(CH_DISPLAY_VERSION)
+  ro.ch.display.version=$(CH_DISPLAY_VERSION)-Thanks for your support
   ro.cmlegal.url=https://www.cyanogenmod.org/docs/privacy
 
 -include vendor/ch-priv/keys/keys.mk
